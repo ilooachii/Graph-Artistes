@@ -1,15 +1,23 @@
 // Graph.java
 import java.util.Map;
+import java.util.List;
 
 public class Graph {
     // Attribut pour stocker les artistes
     private Map<String, Artist> artistes;
 
     public Graph(String fileArtists, String fileMentions) {
-        // 1. Lire le fichier artists.txt et créer les instances Artist
-        // 2. Lire le fichier mentions.txt et pour chaque ligne,
-        //    créer des arêtes (Edge) entre les artistes correspondants,
-        //    en calculant le poids comme 1 / (nombre de mentions).
+        // Lire le fichier artists.txt et créer les instances Artist
+        artistes = Parser.parseArtists(fileArtists);
+
+        // Lire le fichier mentions.txt et créer les connexions entre artistes
+        List<Edge> edges = Parser.parseMentions(fileMentions, artistes);
+
+        // Ajouter les connexions aux artistes
+        for (Edge edge : edges) {
+            edge.getSource().addConnection(edge);
+            edge.getDestination().addConnection(edge); // Si le graphe est non orienté
+        }
     }
 
     public void trouverCheminLePlusCourt(String depart, String arrivee) {

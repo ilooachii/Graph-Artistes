@@ -11,5 +11,15 @@ public class Edge {
         this.poids = 1.0 / nombreMentions;
     }
 
+    // Méthode pour obtenir l'artiste source
+    public Artist getSource() {
+        return source;
+    }
+
+    // Méthode pour obtenir l'artiste destination
+    public Artist getDestination() {
+        return destination;
+    }
+
     // Getters, setters, etc.
 }
